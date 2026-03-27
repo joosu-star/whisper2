@@ -2,52 +2,33 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Whispr</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Whispr Experimento</title>
 <link rel="stylesheet" href="style.css">
 </head>
-
-<body>
-
-<header id="header">🕶️ Whispr</header>
-
-<div onclick="activarAdmin()" class="admin-btn">⚙</div>
-
-<div class="tabs">
-  <div class="tab main-tab active" onclick="switchTab('trending')">🔥 Tendencias</div>
-  <div class="tab main-tab" onclick="toggleChannels()">📂 Canales ⬇</div>
-  <div class="tab main-tab" onclick="switchTab('fame')">🏆 Salón</div>
-  <div class="tab main-tab" onclick="switchTab('info')">ℹ️ Info</div>
-</div>
-
-<div id="channelsDropdown" class="channels hidden">
-  <div class="channel" onclick="switchChannel('general')">💬 General</div>
-  <div class="channel" onclick="switchChannel('profesores')">👨‍🏫 Profesores</div>
-  <div class="channel" onclick="switchChannel('experiencias')">🧠 Experiencias</div>
-  <div class="channel" onclick="switchChannel('quejas')">⚠️ Quejas</div>
-</div>
-
-<div class="search-bar">
-  <input id="searchInput" placeholder="Buscar..." oninput="render()">
-</div>
-
-<div id="content"></div>
-
-<div id="currentChannel" class="current-channel">Canal: General</div>
-
-<button class="fab" onclick="openModal()">＋</button>
-
-<div id="modal" class="modal hidden">
-  <div class="modal-box">
-    <textarea id="newMsg" placeholder="¿Qué quieres decir?"></textarea>
-    <button onclick="addMessage()">Publicar</button>
-    <button onclick="closeModal()">Cancelar</button>
+<body class="channel-general">
+<header>
+  <div id="tabs">
+    <button class="tab" data-tab="trending">Tendencias</button>
+    <button class="tab" data-tab="info">Info</button>
+    <button class="tab" data-tab="fame">Salón de la Fama</button>
   </div>
-</div>
+  <div id="currentChannel"></div>
+</header>
 
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+<section id="channels">
+  <button class="channel-btn" data-channel="general">General</button>
+  <button class="channel-btn" data-channel="profesores">Profesores</button>
+  <button class="channel-btn" data-channel="experiencias">Experiencias</button>
+  <button class="channel-btn" data-channel="quejas">Quejas</button>
+</section>
+
+<main id="content">
+  <div id="trending" class="tab-content">Contenido Tendencias</div>
+  <div id="info" class="tab-content">Info: tres recuadros originales...</div>
+  <div id="fame" class="tab-content">Salón de la Fama: diseño distinto...</div>
+</main>
+
 <script src="app.js"></script>
-
 </body>
 </html>
