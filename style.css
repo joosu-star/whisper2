@@ -1,203 +1,70 @@
-body{
-  margin:0;
-  font-family:'Segoe UI', sans-serif;
-  background:linear-gradient(180deg,#0a0a0a,#050505);
-  color:white;
-  transition: background 1s ease;
-}
-
-header{
-  text-align:center;
-  padding:15px;
-  font-size:20px;
-}
-
-.admin-btn{
-  position:fixed;
-  top:5px;
-  right:10px;
-  opacity:0.1;
-}
-
-.tabs{
-  display:flex;
-  justify-content:center;
-  gap:8px;
-  padding:10px;
-}
-
-.tab{
-  padding:8px 14px;
-  border-radius:20px;
-  background:#1a1a1a;
-  cursor:pointer;
-  transition: all 0.3s ease;
-}
-
-.main-tab.active{
-  border:2px solid #6a00ff;
-}
-
-.channels{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  transition: max-height 0.3s ease, opacity 0.3s ease;
-  max-height:0;
-  overflow:hidden;
-  opacity:0;
-}
-
-.channels.show{
-  max-height:300px;
-  opacity:1;
-}
-
-.channel{
-  width:90%;
-  text-align:center;
-  padding:10px;
-  margin:4px 0;
-  background:#111;
-  border-radius:15px;
-  cursor:pointer;
-  transition: all 0.3s ease;
-}
-
-.channel:hover{
-  background:#222;
-}
-
-/* Search */
-.search-bar{
-  padding:10px;
-}
-
-.search-bar input{
-  width:100%;
-  padding:12px;
-  border-radius:20px;
+/* Canales */
+.channel-btn {
+  padding: 10px 20px;
+  margin:5px;
   border:none;
-  background:#111;
-  color:white;
+  cursor:pointer;
+  background:#ddd;
+  transition:0.3s;
 }
 
-/* Messages */
-.message{
-  margin:12px;
-  padding:15px;
-  background:#141414;
-  border-radius:15px;
-  position:relative;
-  overflow:hidden;
-}
-
-.message.owner{
-  border:1px solid #00c3ff;
-}
-
-.owner-name{
-  color:#00c3ff;
-}
-
-/* Badge categoria */
-.category-badge{
-  display:inline-block;
-  padding:2px 6px;
-  border-radius:8px;
-  font-size:12px;
+.channel-btn.active {
   font-weight:bold;
-  margin-left:6px;
 }
 
-/* FAB */
-.fab{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  width:60px;
-  height:60px;
-  border-radius:50%;
-  border:none;
-  background:#6a00ff;
-  color:white;
-  font-size:26px;
-}
-
-/* Modal */
-.modal{
+/* Bordes con oleaje tipo picos */
+body.channel-general::before,
+body.channel-profesores::before,
+body.channel-experiencias::before,
+body.channel-quejas::before {
+  content:"";
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.7);
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  pointer-events:none;
+  border:5px solid transparent;
+  border-image:linear-gradient(45deg,transparent 25%,currentColor 50%,transparent 75%) 1;
+  border-image-slice:1;
+  animation:waveBorder 3s infinite linear;
 }
 
-.modal-box{
-  background:#111;
-  padding:20px;
-  border-radius:20px;
+@keyframes waveBorder {
+  0% {transform:rotate(0deg);}
+  50% {transform:rotate(3deg);}
+  100% {transform:rotate(0deg);}
 }
 
-.hidden{
-  display:none;
+/* Colores por canal */
+body.channel-general { --border-color:#1E90FF; color:#1E90FF; }
+body.channel-profesores { --border-color:#32CD32; color:#32CD32; }
+body.channel-experiencias { --border-color:#8A2BE2; color:#8A2BE2; }
+body.channel-quejas { --border-color:#FF4500; color:#FF4500; }
+
+/* Mensajes con fondo suave animado (oleaje) */
+.message::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:repeating-linear-gradient(
+    45deg,
+    rgba(255,255,255,0.02),
+    rgba(255,255,255,0.02) 2px,
+    transparent 2px,
+    transparent 4px
+  );
+  z-index:0;
+  pointer-events:none;
+  animation:waveBackground 4s linear infinite;
 }
 
-textarea{
-  width:100%;
-  height:100px;
-  background:#222;
-  color:white;
-  border:none;
-  border-radius:10px;
-  padding:10px;
+@keyframes waveBackground {
+  0% {background-position:0 0;}
+  100% {background-position:50px 50px;}
 }
 
-/* Info box */
-.info-box{
-  margin:15px;
-  padding:15px;
-  background:#111;
-  border-radius:15px;
-}
+.message * {position:relative; z-index:1;}
 
-/* Fame */
-.fame-section{
-  padding:10px;
-}
-
-.fame-title{
-  font-size:18px;
-  margin:10px;
-}
-
-.fame-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
-  gap:10px;
-}
-
-.fame-card{
-  background:#111;
-  border-radius:15px;
-  padding:10px;
-  text-align:center;
-}
-
-.fame-top{
-  border:2px solid gold;
-}
-
-/* Oleaje canal */
-body.channel-general{border:5px solid #1E90FF;transition:border 1s ease;}
-body.channel-profesores{border:5px solid #32CD32;transition:border 1s ease;}
-body.channel-experiencias{border:5px solid #8A2BE2;transition:border 1s ease;}
-body.channel-quejas{border:5px solid #FF4500;transition:border 1s ease;}
-
-.current-channel{
-  text-align:center;
-  padding:8px;
-  font-weight:bold;
-  margin:0;
-}
+/* Tabs */
+.tab {cursor:pointer; padding:10px 20px; margin:3px;}
+.tab.active {background:var(--border-color); color:white;}
+.tab-content {display:none;}
+.tab-content.active {display:block;}
